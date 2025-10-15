@@ -14,6 +14,7 @@ public class JournalEntry {
     public String getTitle;
     @Id
     private ObjectId id;
+    @NonNull
     private String title;
     private String content;
     private LocalDateTime date;
