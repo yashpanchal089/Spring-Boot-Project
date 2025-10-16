@@ -6,43 +6,48 @@ import com.yash.journalApp.repository.JournalEntryRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-@Service
+@Component
 @Slf4j
 public class JournalEntryService {
 
-    private final JournalEntryRepository journalEntryRepository;
+    @Autowired
+    private JournalEntryRepository journalEntryRepository;
 
-    private final UserService userService;
+    @Autowired
+    private UserService userService;
 
     private static final Logger logger = LoggerFactory.getLogger(JournalEntryService.class);
 
-    @Autowired
-    public JournalEntryService(JournalEntryRepository journalEntryRepository, UserService userService) {
-        this.journalEntryRepository = journalEntryRepository;
-        this.userService = userService;
-    }
-
+    @Transactional
     public void saveEntry(JournalEntry journalEntry, String userName){
-        User user = userService.findByUserName(userName);
-        journalEntry.setDate(LocalDateTime.now());
-        JournalEntry saved = journalEntryRepository.save(journalEntry);
-        user.getJournalEntries().add(saved);
-        userService.saveEntry(user);
-        logger.info("Saved journal entry id={} for user={}", saved.getId(), userName);
+
+        try{
+            User user = userService.findByUserName(userName);
+            journalEntry.setDate(LocalDateTime.now());
+            JournalEntry saved = journalEntryRepository.save(journalEntry);
+            user.getJournalEntries().add(saved);
+            user.setUserName(null);
+            userService.saveEntry(user);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            throw  new RuntimeException("An Error occurred while using the entry !" + e);
+        }
+
+
     }
 
     public void saveEntry(JournalEntry journalEntry){
         journalEntryRepository.save(journalEntry);
-        logger.debug("Saved journal entry id={}", journalEntry.getId());
     }
     public List<JournalEntry> getAllEntries() {
 
@@ -57,7 +62,6 @@ public class JournalEntryService {
         user.getJournalEntries().removeIf(x -> x.getId().equals(id));
         userService.saveEntry(user);
         journalEntryRepository.deleteById(id);
-        logger.info("Deleted journal entry id={} for user={}", id, userName);
     }
 
 }
