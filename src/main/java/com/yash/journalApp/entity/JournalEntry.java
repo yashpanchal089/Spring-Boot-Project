@@ -12,7 +12,6 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 public class JournalEntry {
-    public String getTitle;
     @Id
     private ObjectId id;
     @NonNull
