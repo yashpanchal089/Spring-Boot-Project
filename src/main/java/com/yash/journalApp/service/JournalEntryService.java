@@ -1,6 +1,7 @@
 package com.yash.journalApp.service;
 
 import com.yash.journalApp.entity.JournalEntry;
+import com.yash.journalApp.entity.User;
 import com.yash.journalApp.repository.JournalEntryRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
@@ -21,15 +22,17 @@ public class JournalEntryService {
     @Autowired
     private JournalEntryRepository journalEntryRepository;
 
+    @Autowired
+    private UserService userService;
+
     private static final Logger logger = LoggerFactory.getLogger(JournalEntryService.class);
 
-    public void saveEntry(JournalEntry journalEntry){
-        try{
-            journalEntry.setDate(LocalDateTime.now());
-            journalEntryRepository.save(journalEntry);
-        } catch (Exception e){
-            log.error("Exception" + e);
-        }
+    public void saveEntry(JournalEntry journalEntry, String userName){
+        User user = userService.findByUserName(userName);
+        journalEntry.setDate(LocalDateTime.now());
+        JournalEntry saved = journalEntryRepository.save(journalEntry);
+        user.getJournalEntries().add(saved);
+        userService.saveEntry(user);
 
     }
     public List<JournalEntry> getAllEntries() {
