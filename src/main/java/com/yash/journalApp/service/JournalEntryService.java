@@ -28,7 +28,6 @@ public class JournalEntryService {
 
     private static final Logger logger = LoggerFactory.getLogger(JournalEntryService.class);
 
-    @Transactional
     public void saveEntry(JournalEntry journalEntry, String userName){
 
         try{
@@ -36,7 +35,6 @@ public class JournalEntryService {
             journalEntry.setDate(LocalDateTime.now());
             JournalEntry saved = journalEntryRepository.save(journalEntry);
             user.getJournalEntries().add(saved);
-            user.setUserName(null);
             userService.saveEntry(user);
         }catch (Exception e){
             System.out.println(e.getMessage());
