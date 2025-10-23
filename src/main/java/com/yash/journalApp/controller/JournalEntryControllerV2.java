@@ -33,8 +33,10 @@ public class JournalEntryControllerV2 {
     }
 
     // ---------------- Get Journals by Username (Optional) ----------------
-    @GetMapping("/{username}")
-    public ResponseEntity<?> getAllJournalEntriesOfUser(@PathVariable("username") String username) {
+    @GetMapping
+    public ResponseEntity<?> getAllJournalEntriesOfUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
         String currentUsername = getAuthenticatedUsername();
         if (!currentUsername.equals(username)) {
             return new ResponseEntity<>("Forbidden: Cannot access other user's journals", HttpStatus.FORBIDDEN);
@@ -51,9 +53,10 @@ public class JournalEntryControllerV2 {
     }
 
     // ---------------- Create Journal for Specific User (Optional) ----------------
-    @PostMapping("/{username}")
-    public ResponseEntity<?> createEntryForUser(@RequestBody JournalEntry myEntry,
-                                                @PathVariable("username") String username) {
+    @PostMapping
+    public ResponseEntity<?> createEntryForUser(@RequestBody JournalEntry myEntry) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
         String currentUsername = getAuthenticatedUsername();
         if (!currentUsername.equals(username)) {
             return new ResponseEntity<>("Forbidden: Cannot create journal for another user", HttpStatus.FORBIDDEN);
