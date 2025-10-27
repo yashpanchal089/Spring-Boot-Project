@@ -28,7 +28,7 @@ public class SpringSecurity {
                         .requestMatchers("/public/**").permitAll()
                         .requestMatchers("/journal/**").authenticated()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .anyRequest().authenticated())
+                        .anyRequest().permitAll())
                 .httpBasic(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .build();
