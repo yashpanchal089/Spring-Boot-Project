@@ -10,13 +10,14 @@ import org.springframework.stereotype.Component;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-@Component
+@Service
 @Slf4j
 public class JournalEntryService {
 
@@ -66,7 +67,7 @@ public class JournalEntryService {
                 journalEntryRepository.deleteById(id);
             }
         } catch ( Exception e ){
-            System.out.println(e.getMessage());
+            log.error("Error",e);
             throw new RuntimeException("An Error occurred while deleting the entry !" + e);
         }
         return removed;
