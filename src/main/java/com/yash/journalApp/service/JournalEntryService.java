@@ -35,10 +35,14 @@ public class JournalEntryService {
             User user = userService.findByUserName(userName);
             journalEntry.setDate(LocalDateTime.now());
             JournalEntry saved = journalEntryRepository.save(journalEntry);
+            if (user.getJournalEntries() == null) {
+                user.setJournalEntries(new java.util.ArrayList<>());
+            }
             user.getJournalEntries().add(saved);
             userService.saveEntry(user);
+            log.info("Journal entry saved for user {}", userName);
         }catch (Exception e){
-            System.out.println(e.getMessage());
+            log.error("Failed to save journal entry for user {}", userName, e);
             throw  new RuntimeException("An Error occurred while using the entry !" + e);
         }
 
@@ -61,6 +65,9 @@ public class JournalEntryService {
         boolean removed = false;
         try{
             User user = userService.findByUserName(userName);
+            if (user.getJournalEntries() == null) {
+                return false;
+            }
             removed =  user.getJournalEntries().removeIf(x -> x.getId().equals(id));
             if (removed){
                 userService.saveEntry(user);
