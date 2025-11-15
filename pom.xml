@@ -61,6 +61,13 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- Mail -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <build>
