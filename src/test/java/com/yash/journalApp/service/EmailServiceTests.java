@@ -14,8 +14,6 @@ public class EmailServiceTests {
     void testSendMail() {
         emailService.sendEmail("panchalyash089@gmail.com",
                 "Testing Java Mail Sender",
-                "Hi, kaisa laga ye mera test email?");
+                "sending mail from smtp server");
     }
-
-
 }
