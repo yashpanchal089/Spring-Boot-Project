@@ -28,6 +28,7 @@ public class SpringSecurity {
                         .requestMatchers("/user/**").permitAll()
                         .requestMatchers("/public/**").permitAll()
                         .requestMatchers("/journal/**").permitAll()
+                        .requestMatchers("/admin/").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().permitAll())
                 .httpBasic(Customizer.withDefaults())

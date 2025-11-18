@@ -51,6 +51,11 @@ public class UserController {
             userInDb.setPassword(userService.encodePassword(user.getPassword()));
         }
 
+        // Update email if provided
+        if(user.getEmail() != null && !user.getEmail().isEmpty()){
+            userInDb.setEmail(user.getEmail());
+        }
+
         userService.saveEntry(userInDb);
 
         // Return the updated username to the client
