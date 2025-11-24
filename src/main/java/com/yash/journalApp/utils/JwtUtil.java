@@ -61,7 +61,7 @@ public class JwtUtil {
                 .setSubject(subject)
                 .setHeaderParam("typ", "JWT")
                 .setIssuedAt(new Date(now))
-                .setExpiration(new Date(now + 1000L * 60))
+                .setExpiration(new Date(now + 1000L * 60 * 60))
                 .signWith(getSigningKey())
                 .compact();
     }
