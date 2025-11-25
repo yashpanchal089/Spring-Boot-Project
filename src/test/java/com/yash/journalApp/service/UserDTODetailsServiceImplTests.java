@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import static org.mockito.Mockito.*;
 
 
-public class UserDetailsServiceImplTests {
+public class UserDTODetailsServiceImplTests {
 
     @InjectMocks
     private UserDetailsServiceImpl userDetailsService;

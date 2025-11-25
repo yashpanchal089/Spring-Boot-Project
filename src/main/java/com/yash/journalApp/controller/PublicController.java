@@ -1,5 +1,6 @@
 package com.yash.journalApp.controller;
 
+import com.yash.journalApp.dto.UserDTO;
 import com.yash.journalApp.entity.User;
 import com.yash.journalApp.service.UserDetailsServiceImpl;
 import com.yash.journalApp.service.UserService;
@@ -11,7 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,8 +40,13 @@ public class PublicController {
 
     // Create new user
     @PostMapping("/signup")
-    public ResponseEntity<?> signup(@RequestBody User user){
-        userService.saveNewUser(user); // password will be encoded
+    public ResponseEntity<?> signup(@RequestBody UserDTO userDTO){
+        User newUser = new User();
+        newUser.setEmail(userDTO.getEmail());
+        newUser.setUserName(userDTO.getUserName());
+        newUser.setPassword(userDTO.getPassword());
+        newUser.setSentimentAnalysis(userDTO.isSentimentAnalysis());
+        userService.saveNewUser(newUser); // password will be encoded
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
