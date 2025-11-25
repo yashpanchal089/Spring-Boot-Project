@@ -4,6 +4,7 @@ import com.yash.journalApp.entity.User;
 import com.yash.journalApp.service.UserDetailsServiceImpl;
 import com.yash.journalApp.service.UserService;
 import com.yash.journalApp.utils.JwtUtil;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/public")
+@Tag(name = "Public APIs")
 @Slf4j
 public class PublicController {
 
