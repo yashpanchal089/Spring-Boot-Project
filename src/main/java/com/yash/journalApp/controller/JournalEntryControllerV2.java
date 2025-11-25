@@ -90,8 +90,9 @@ public class JournalEntryControllerV2 {
 
     // ---------------- Other endpoints for update/delete by ID ----------------
     @GetMapping("/id/{myId}")
-    public ResponseEntity<JournalEntry> getJournalEntryById(@PathVariable ObjectId myId) {
-        Optional<JournalEntry> journalEntry = journalEntryService.findById(myId);
+    public ResponseEntity<JournalEntry> getJournalEntryById(@PathVariable String myId) {
+        ObjectId objectId = new ObjectId(myId);
+        Optional<JournalEntry> journalEntry = journalEntryService.findById(objectId);
         return journalEntry.map(entry -> new ResponseEntity<>(entry, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
