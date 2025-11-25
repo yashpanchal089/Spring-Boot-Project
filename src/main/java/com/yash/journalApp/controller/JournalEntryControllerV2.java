@@ -4,6 +4,7 @@ import com.yash.journalApp.entity.JournalEntry;
 import com.yash.journalApp.entity.User;
 import com.yash.journalApp.service.JournalEntryService;
 import com.yash.journalApp.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,7 @@ public class JournalEntryControllerV2 {
 
     // ---------------- Get Journals by Username (Optional) ----------------
     @GetMapping
+    @Operation(summary = "Get all journal entries of a user" )
     public ResponseEntity<?> getAllJournalEntriesOfUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
