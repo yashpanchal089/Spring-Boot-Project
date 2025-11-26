@@ -5,6 +5,7 @@ import com.yash.journalApp.repository.UserRepository;
 import com.yash.journalApp.service.UserDetailsServiceImpl;
 import com.yash.journalApp.utils.JwtUtil;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,6 +27,7 @@ import java.util.*;
 
 @RestController
 @RequestMapping("auth/google")
+@Tag(name = "Authentication APIs", description = "Enter Authentication code to get JWT Token")
 @Slf4j
 public class GoogleAuthController {
 
