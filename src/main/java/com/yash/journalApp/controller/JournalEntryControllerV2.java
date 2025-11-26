@@ -90,6 +90,7 @@ public class JournalEntryControllerV2 {
 
     // ---------------- Other endpoints for update/delete by ID ----------------
     @GetMapping("/id/{myId}")
+    @Operation(summary = "Get journal entries by specific by ID" )
     public ResponseEntity<JournalEntry> getJournalEntryById(@PathVariable String myId) {
         ObjectId objectId = new ObjectId(myId);
         Optional<JournalEntry> journalEntry = journalEntryService.findById(objectId);
@@ -98,6 +99,7 @@ public class JournalEntryControllerV2 {
     }
 
     @DeleteMapping("/id/{myId}")
+    @Operation(summary = "delete journal entries by specific by ID" )
     public ResponseEntity<?> deleteJournalEntryById(@PathVariable ObjectId myId) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
@@ -111,6 +113,7 @@ public class JournalEntryControllerV2 {
     }
 
     @PutMapping("/id/{myId}")
+    @Operation(summary = "Update journal entries by specific by ID" )
     public ResponseEntity<?> updateJournalById(@PathVariable ObjectId myId, @RequestBody JournalEntry newEntry) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
