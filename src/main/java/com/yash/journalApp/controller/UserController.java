@@ -5,6 +5,7 @@ import com.yash.journalApp.entity.User;
 import com.yash.journalApp.repository.UserRepository;
 import com.yash.journalApp.service.UserService;
 import com.yash.journalApp.service.WeatherService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,6 +31,7 @@ public class UserController {
 
     // Update username and/or password
     @PutMapping
+    @Operation(summary = "Update Username and Password")
     public ResponseEntity<?> updateUser(@RequestBody User user){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || !authentication.isAuthenticated()
@@ -65,6 +67,7 @@ public class UserController {
     }
 
     @DeleteMapping
+    @Operation(summary = "Delete User by ID")
     public ResponseEntity<?> deleteUserById() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         userRepository.deleteByUserName(authentication.getName());
@@ -72,6 +75,7 @@ public class UserController {
     }
 
     @GetMapping
+    @Operation(summary = "Weather API integrated Greeting")
     public ResponseEntity<?> greeting() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         WeatherResponse weatherResponse = weatherService.getWeather("Mumbai");
