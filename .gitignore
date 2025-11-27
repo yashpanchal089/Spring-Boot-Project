@@ -31,3 +31,12 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Ignore Spring Boot properties that may contain secrets
+/src/main/resources/application.properties
+/src/main/resources/application-*.properties
+# Keep example/template files tracked
+!src/main/resources/application.properties.example
+
+# Ignore local env files
+.env
