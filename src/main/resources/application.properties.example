@@ -19,4 +19,6 @@ sring.mail.password=${SPRING_MAIL_PASSWORD}
 spring.data.redis.url=${SPRING_DATA_REDIS_URL}
 spring.data.redis.ssl.enabled=${SPRING_DATA_REDIS_SSL_ENABLED:false}
 
-
+springdoc.api-docs.enabled=true
+springdoc.swagger-ui.configUrl=/v3/api-docs/swagger-config
+springdoc.swagger-ui.url=/v3/api-docs
