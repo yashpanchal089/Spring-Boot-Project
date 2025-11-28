@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/admin")
-@Tag(name = "Admin APIsssss", description = "Admin level operations")
+@Tag(name = "Admin APIs", description = "Admin level operations")
 
 public class AdminController {
 
