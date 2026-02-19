@@ -8,7 +8,6 @@ spring.data.mongodb.database=${SPRING_DATA_MONGODB_DATABASE:journaldb}
 
 # Weather API
 weather.api.key=${WEATHER_API_KEY}
-
 # Mail (use environment variables for username/password)
 spring.mail.host=${SPRING_MAIL_HOST:smtp.gmail.com}
 spring.mail.port=${SPRING_MAIL_PORT:587}

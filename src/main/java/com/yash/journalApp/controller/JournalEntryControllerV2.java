@@ -31,6 +31,7 @@ public class JournalEntryControllerV2 {
 
     // ---------------- Get Journals of Current Authenticated User ----------------
     @GetMapping("/me")
+    @Operation(summary = "Get Journals of Current Authenticated User")
     public ResponseEntity<?> getAllJournalEntriesOfMe() {
         String currentUsername = getAuthenticatedUsername();
         return getJournalEntriesByUsername(currentUsername);
@@ -51,6 +52,7 @@ public class JournalEntryControllerV2 {
 
     // ---------------- Create Journal for Current User ----------------
     @PostMapping("/me")
+    @Operation(summary = "Create Journal for Current User")
     public ResponseEntity<JournalEntry> createEntryForMe(@RequestBody JournalEntry myEntry) {
         String currentUsername = getAuthenticatedUsername();
         journalEntryService.saveEntry(myEntry, currentUsername);
@@ -59,6 +61,7 @@ public class JournalEntryControllerV2 {
 
     // ---------------- Create Journal for Specific User (Optional) ----------------
     @PostMapping
+    @Operation(summary = "Create Journal for Specific User (Optional)")
     public ResponseEntity<?> createEntryForUser(@RequestBody JournalEntry myEntry) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
